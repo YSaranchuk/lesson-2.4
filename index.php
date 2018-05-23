@@ -63,7 +63,7 @@ if($_SESSION["mistakes"]>11)
     <p>Если вы первый раз на этом сайте, нажмите на клавишу "Зарегистрироваться".</p>
     <p><input type="text" name="login" placeholder="Имя"></p>
     <p><input type="password" name="password" placeholder="Пароль"></p>
-<?php //Скрываем поле для входа, если много ошибок, пока пользователь не ввел капчу
+<?php
 if ($_SESSION["mistakes"]<=6): ?>
     <p><input type="submit" name="sign_in" value="Вход"></p>
 <?php
@@ -80,7 +80,7 @@ endif;
 </body>
 </html>
 <?php
-//Проверка на ввод имени
+
 if (isset($_POST["sign_in"])||
     isset($_POST["sign_up"])||
     isset($_POST["guest"]))
@@ -121,7 +121,7 @@ if (isset($_POST["sign_up"]))
     echo "Поздравляю с регистрацией,".$_POST["login"];
     $_SESSION["auth"]="yes";
     unset($_SESSION["guest"]);
-    header("refresh: 5; url=admin.php");
+    header("refresh: 10; url=admin.php");
     exit;
 }
 
@@ -137,10 +137,10 @@ if (isset($_POST["sign_in"]))
         if ($users["login"]==$_POST["login"]&&$users["password"]==$_POST["password"])
         {
                 echo "Добро пожаловать, " . $_SESSION["name"];
-                echo "<br>Через 5 секунд вы будете перенаправлены на главную страницу";
+                echo "<br>Через 10 секунд вы будете перенаправлены на главную страницу";
                 $_SESSION["auth"]="yes";
                 unset($_SESSION["guest"]);
-                header("refresh: 5; url=admin.php");
+                header("refresh: 10; url=admin.php");
                 exit;
         }
     }
