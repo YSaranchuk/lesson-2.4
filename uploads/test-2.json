@@ -1,0 +1,19 @@
+[
+    {
+        "question": "Сколько граммов в одном килограмме?",
+        "answers": [
+            {
+                "answer": 10,
+                "result": false
+            },
+            {
+                "answer": 100,
+                "result": false
+            },
+            {
+                "answer": 1000,
+                "result": true
+            }
+        ]
+    }
+]
