@@ -11,7 +11,6 @@ else
     session_start();
 }
 $current_time=time();
-
 if (!empty($_SESSION["blocked_time"]))
 {
     if ($_SESSION["blocked_time"]>$current_time)
@@ -23,15 +22,17 @@ if (!empty($_SESSION["blocked_time"]))
         unset($_SESSION["blocked_time"]);
     }
 }
+if(!empty($_SESSION["mistakes"])) //когда заключаю код в скобки { if ($_SESSION["mistakes"]>6):} появляется ошибка синтексиса
 
-if ($_SESSION["mistakes"]>6): ?>
-    <form method="GET" enctype="multipart/form-data">
-        <img src='captcha.php' id='capcha-image'>
-        <a href="javascript:void(0);" onclick="document.getElementById('capcha-image').src='captcha.php?rid=' + Math.random();"><br>Обновить изображение</a>
-        <p><br>Вы ошиблись слишком много раз. <br> Введите текст, указанный на изображении:</p>
-        <input type="text" name="code" required>
-        <input type="submit" name="cap_test" value="Продолжить">
-    </form>
+    if ($_SESSION["mistakes"]>6): ?>
+        <form method="GET" enctype="multipart/form-data">
+            <img src='captcha.php' id='capcha-image'>
+            <a href="javascript:void(0);" onclick="document.getElementById('capcha-image').src='captcha.php?rid=' + Math.random();"><br>Обновить изображение</a>
+            <p><br>Вы ошиблись слишком много раз. <br> Введите текст, указанный на изображении:</p>
+            <input type="text" name="code" required>
+            <input type="submit" name="cap_test" value="Продолжить">
+        </form>
+    
 <?php endif;
 if (isset($_GET["cap_test"])&&$_GET["code"]===$_SESSION["cod"])
 {
@@ -44,10 +45,12 @@ if (isset($_GET["cap_test"])&&$_GET["code"]!==$_SESSION["cod"])
     $_SESSION["mistakes"]++;
 }
 //Механизм блокировки пользователя на час после 11 ошибок
-if($_SESSION["mistakes"]>11)
-{
-    $_SESSION["blocked_time"] = $current_time + 3600;
-    exit();
+if(!empty($_SESSION[‘mistakes’])) {
+    if($_SESSION["mistakes"]>11)
+    {
+        $_SESSION["blocked_time"] = $current_time + 3600;
+        exit();
+    }
 }
 ?>
 <!doctype html>
@@ -80,7 +83,6 @@ endif;
 </body>
 </html>
 <?php
-
 if (isset($_POST["sign_in"])||
     isset($_POST["sign_up"])||
     isset($_POST["guest"]))
@@ -91,7 +93,6 @@ if (isset($_POST["sign_in"])||
     }
 }
 $_SESSION["name"]=$_POST["login"];
-
 if (isset($_POST["guest"]))
 {
     $_SESSION["guest"]="yes";
@@ -99,7 +100,6 @@ if (isset($_POST["guest"]))
     header("Location: admin.php");
     exit;
 }
-
 if (isset($_POST["sign_up"]))
 {
     $users_base = json_decode(file_get_contents("users.json"), true);
@@ -124,7 +124,6 @@ if (isset($_POST["sign_up"]))
     header("refresh: 10; url=admin.php");
     exit;
 }
-
 if (isset($_POST["sign_in"]))
 {
     $users_base = json_decode(file_get_contents("users.json"), true);
