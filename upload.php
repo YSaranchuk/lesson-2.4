@@ -33,13 +33,16 @@ if ($_SESSION["auth"]!=="yes")
     </fieldset>
 </form>
 <?php
-$path_info = pathinfo("base/".($_FILES["testfile"]["name"])); //Задаем путь для сохраняемого теста
+$path_info = pathinfo("base/".($_FILES["testfile"]["name"]));
+//Задаем путь для сохраняемого теста
 if (isset($_POST["upload"]))
 {
+    if(!empty($_FILES["testfile"])) { //внесла правки
     if (is_file("base/".$_FILES["testfile"]["name"])) //Есть ли уже файл с таким именем
     {
         echo "Извините, тест с таким именем уже существует";
     }
+}
     elseif ($path_info["extension"] === "json") //Проверка расширения файла
     {
         $test_test = json_decode(file_get_contents($_FILES["testfile"]["tmp_name"]), true); 
@@ -77,3 +80,4 @@ if (isset($_POST["upload"]))
 ?>
 </body>
 </html>
+
