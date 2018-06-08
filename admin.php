@@ -1,6 +1,8 @@
 <?php
-error_reporting(0); //Чтобы не выдавало уведомлений
-session_id($_COOKIE['session_id']);
+header('HTTP/1.1 403 incorrect user');
+echo 'Ошибка 403, доступ запрещен'; // правки
+//error_reporting(0); //Чтобы не выдавало уведомлений
+session_id($_COOKIE['session_id']); // не понятно как исправить
 session_start();
 ?>
 <html>
