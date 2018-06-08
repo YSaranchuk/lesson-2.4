@@ -3,8 +3,8 @@ header("Content-Type: text/html; charset=utf-8");
 if (empty($_SESSION["name"])||($_SESSION["test"]!=="done")) 
 {
     http_response_code(403);
-    echo "<br><br> 403! Доступ запрещен! <br> Вы будете перемещены назад через 10 секунд!";
-    header("refresh: 10; url=index.php");
+    echo "<br><br> 403! Доступ запрещен! <br> Вы будете перемещены назад через 5 секунд!";
+    header("refresh: 5; url=index.php");
     exit();
 } //подскажите как лучше и правильнее здесь прописать условие
 //error_reporting(0); //Чтобы не выдавало уведомлений
