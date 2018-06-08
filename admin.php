@@ -1,6 +1,12 @@
 <?php
-header('HTTP/1.1 403 incorrect user');
-echo 'Ошибка 403, доступ запрещен'; // правки подскажите как лучше прописать здесь условие 
+header("Content-Type: text/html; charset=utf-8");
+if (empty($_SESSION["name"])||($_SESSION["test"]!=="done")) 
+{
+    http_response_code(403);
+    echo "<br><br> 403! Доступ запрещен! <br> Вы будете перемещены назад через 10 секунд!";
+    header("refresh: 10; url=index.php");
+    exit();
+} //подскажите как лучше и правильнее здесь прописать условие
 //error_reporting(0); //Чтобы не выдавало уведомлений
 session_id($_COOKIE['session_id']); // не понятно как исправить
 session_start();
