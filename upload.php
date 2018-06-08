@@ -45,7 +45,9 @@ if (isset($_POST["upload"]))
 }
     elseif ($path_info["extension"] === "json") //Проверка расширения файла
     {
-        $test_test = json_decode(file_get_contents($_FILES["testfile"]["tmp_name"]), true); 
+        $test_test = json_decode(file_get_contents($_FILES["testfile"]["tmp_name"]), true); //правки
+        $data = file_get_contents($link) or exit('Не удалось получить данные'); 
+        $decodedData = json_decode($data, true) or exit('Ошибка декодирования json');
         foreach ($test_test as $k=>$i)
         {
             if
