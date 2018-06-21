@@ -1,14 +1,15 @@
 <?php
-error_reporting(0);
-session_id($_COOKIE['session_id']);
 session_start();
-if (empty($_SESSION["name"])||($_SESSION["test"]!=="done")) 
-{
+
+if(!empty(session_id($_COOKIE['session_id']))); 
+
+
+if (empty($_SESSION["name"])) {
     http_response_code(403);
-    echo "<br><br> 403! Доступ запрещен! <br> Вы будете перемещены назад через 10 секунд!";
-    header("refresh: 10; url=index.php");
+    header("refresh: 5; url=list.php");
+    echo "<br><br> 403! Доступ запрещен! <br> Вы будете перемещены назад через 5 секунд!";
     exit();
-}
+} 
 $font='FONT.ttf'; 
 header("Content-type: image/png"); 
 $gb=$_POST["gb"];
