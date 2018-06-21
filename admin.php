@@ -1,15 +1,17 @@
 <?php
 header("Content-Type: text/html; charset=utf-8");
-if (empty($_SESSION["name"])||($_SESSION["test"]!=="done")) 
-{
-    http_response_code(403);
-    echo "<br><br> 403! Доступ запрещен! <br> Вы будете перемещены назад через 5 секунд!";
-    header("refresh: 5; url=index.php");
-    exit();
-} //подскажите как лучше и правильнее здесь прописать условие
-//error_reporting(0); //Чтобы не выдавало уведомлений
-session_id($_COOKIE['session_id']); // не понятно как исправить
+
 session_start();
+
+if(!empty(session_id($_COOKIE['session_id']))); 
+
+
+if (empty($_SESSION["name"])) {
+    http_response_code(403);
+    header("refresh: 5; url=list.php");
+    echo "<br><br> 403! Доступ запрещен! <br> Вы будете перемещены назад через 5 секунд!";
+    exit();
+} 
 ?>
 <html>
 <head>
@@ -65,7 +67,7 @@ if(isset($_GET["create"])): ?>
 <?php
     //Задаем имя для сохраняемого теста
     $name = $_POST["quiz_name"];
-    $file = "base/$name.json";
+    $file = "uploads/$name.json";
     if (isset($_POST['save']))
     {
         if
