@@ -96,7 +96,7 @@ if (isset($_POST["guest"]))
 {
     $_SESSION["guest"]='yes';
     unset($_SESSION['auth']);
-    header("Location: list.php");
+    header("Location: admin.php");
     exit;
 }
 if (isset($_POST["sign_up"]))
