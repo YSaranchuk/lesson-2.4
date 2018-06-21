@@ -5,7 +5,6 @@ session_start();
 
 if(!empty(session_id($_COOKIE['session_id']))); 
 
-
 if (empty($_SESSION["name"])) {
     http_response_code(403);
     header("refresh: 5; url=list.php");
