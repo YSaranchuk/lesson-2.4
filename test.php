@@ -22,6 +22,8 @@ if (!empty($_SESSION["name"])) {
 }
 $all_tests = glob("uploads/*.json");
 $number = $_GET["test_number"];
+$test = file_get_contents($all_tests[$number]) or exit('Не удалось получить данные');
+$decodedTest = json_decode($test, true) or exit('Ошибка декодирования json');//правки
 $test = json_decode(file_get_contents($all_tests[$number]), true);
 if (is_null($_GET["test_number"])||empty($all_tests[$number]))
 {
