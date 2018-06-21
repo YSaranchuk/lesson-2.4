@@ -7,18 +7,19 @@
 <br><a href="list.php">Вернуться к выбору тестов</a>
 <br><a href="admin.php">Вернуться к главной странице</a>
 <?php
-error_reporting(0); 
-session_id($_COOKIE['session_id']);
+
+if(!empty(session_id($_COOKIE['session_id']))) {
 session_start();
-if (empty($_SESSION["name"])) 
-{
+}
+if (!empty($_SESSION["name"])) {
+    if (empty($_SESSION["name"])) 
+{ 
+    header("refresh: 10; url=list.php");
     http_response_code(403);
-    echo "<br><br> 403! Доступ запрещен! <br> Вы будете перемещены назад через 10 секунд!";
-    header("refresh: 10; url=index.php");
+    echo "<br><br> 403! Доступ запрещен! <br> Вы будете перемещены назад через 10 секунд!"; 
     exit();
 }
-
-
+}
 $all_tests = glob("uploads/*.json");
 $number = $_GET["test_number"];
 $test = json_decode(file_get_contents($all_tests[$number]), true);
@@ -63,7 +64,6 @@ foreach ($test as $key => $answers)
         exit ("Необходимо выбрать хотя бы 1 вариант ответа для каждого вопроса");
     }
 }
-
 $result=[];
 if (isset($_POST["test_check"]))
 {
