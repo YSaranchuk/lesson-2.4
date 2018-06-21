@@ -21,7 +21,7 @@ if (!empty($all_files)): //Проходим массив, выводя для к
         <p><input type="submit" name="get_testing" value="Пройти тестирование"></p>
         </fieldset>
     </form>
-<?php if($_SESSION["auth"]==="yes"): ?>
+<?php if($_SESSION['auth']==='yes'): ?>
     <form method="GET">
         <p>Вы можете удалить этот тест, нажав на кнопку ниже</p>
         <p><input type="submit" name="delete" value="Удалить тест <?=str_replace(array("uploads/",".json"), '', $file);?>"></p>
