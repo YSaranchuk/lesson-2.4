@@ -118,7 +118,7 @@ if (isset($_POST["sign_up"]))
     $users_base[]=$user;
     file_put_contents("users.json", json_encode($users_base));
     echo "Поздравляю с регистрацией,".$_POST["login"];
-    $_SESSION["auth"]="yes";
+    $_SESSION['auth']='yes';
     unset($_SESSION["guest"]);
     header("refresh: 10; url=admin.php");
     exit;
