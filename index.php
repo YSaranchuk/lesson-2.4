@@ -1,5 +1,5 @@
 <?php
-error_reporting(0);
+
 if (empty($_COOKIE['session_id']))
 {
     session_start();
@@ -22,8 +22,7 @@ if (!empty($_SESSION["blocked_time"]))
         unset($_SESSION["blocked_time"]);
     }
 }
-if(!empty($_SESSION["mistakes"])) //когда заключаю код в скобки { if ($_SESSION["mistakes"]>6):} появляется ошибка синтексиса
-
+if(!empty($_SESSION["mistakes"])) 
     if ($_SESSION["mistakes"]>6): ?>
         <form method="GET" enctype="multipart/form-data">
             <img src='captcha.php' id='capcha-image'>
@@ -95,7 +94,7 @@ if (isset($_POST["sign_in"])||
 $_SESSION["name"]=$_POST["login"];
 if (isset($_POST["guest"]))
 {
-    $_SESSION["guest"]="yes";
+    $_SESSION["guest"]='yes';
     unset($_SESSION["auth"]);
     header("Location: admin.php");
     exit;
@@ -135,11 +134,13 @@ if (isset($_POST["sign_in"]))
     {
         if ($users["login"]==$_POST["login"]&&$users["password"]==$_POST["password"])
         {
+                $_SESSION['auth']='yes'; 
+                if(!empty($_SESSION["guest"]))
+                header("refresh: 10; url=admin.php");
+                unset($_SESSION["guest"]);
+                
                 echo "Добро пожаловать, " . $_SESSION["name"];
                 echo "<br>Через 10 секунд вы будете перенаправлены на главную страницу";
-                $_SESSION["auth"]="yes";
-                unset($_SESSION["guest"]);
-                header("refresh: 10; url=admin.php");
                 exit;
         }
     }
