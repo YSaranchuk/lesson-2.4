@@ -7,9 +7,11 @@
 <br><a href="admin.php">Вернуться к главной странице</a>
 
 <?php
-error_reporting(0);
-session_id($_COOKIE['session_id']);
-session_start();
+if(!empty( session_id($_COOKIE['session_id']))) {
+    //session_id($_COOKIE['session_id']); правки
+    session_start();
+ }
+
 //Находим все имеющиеся тесты в заданной папке, определяя их в массив all_files
 $all_files = glob('uploads/*.json');
 if (!empty($all_files)): //Проходим массив, выводя для каждого теста его номер, через который он будет загружаться в обработчик
