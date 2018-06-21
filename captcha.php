@@ -1,7 +1,9 @@
 <?php
-error_reporting(0);
-session_id($_COOKIE['session_id']);
+header("Content-Type: text/html; charset=utf-8");
+
 session_start();
+
+if(!empty(session_id($_COOKIE['session_id']))); 
 $width = 100;			
 $height = 60;				
 $font_size = 16;   			
