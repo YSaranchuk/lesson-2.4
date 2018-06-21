@@ -95,8 +95,8 @@ $_SESSION["name"]=$_POST["login"];
 if (isset($_POST["guest"]))
 {
     $_SESSION["guest"]='yes';
-    unset($_SESSION["auth"]);
-    header("Location: admin.php");
+    unset($_SESSION['auth']);
+    header("Location: list.php");
     exit;
 }
 if (isset($_POST["sign_up"]))
@@ -134,14 +134,14 @@ if (isset($_POST["sign_in"]))
     {
         if ($users["login"]==$_POST["login"]&&$users["password"]==$_POST["password"])
         {
-                $_SESSION['auth']='yes'; 
-                if(!empty($_SESSION["guest"]))
-                header("refresh: 10; url=admin.php");
-                unset($_SESSION["guest"]);
-                
-                echo "Добро пожаловать, " . $_SESSION["name"];
-                echo "<br>Через 10 секунд вы будете перенаправлены на главную страницу";
-                exit;
+            $_SESSION['auth']='yes'; 
+            if(!empty($_SESSION["guest"]))
+            header("refresh: 10; url=admin.php");
+            unset($_SESSION["guest"]);
+            
+            echo "Добро пожаловать, " . $_SESSION["name"];
+            echo "<br>Через 10 секунд вы будете перенаправлены на главную страницу";
+            exit;
         }
     }
     $_SESSION["mistakes"]++; 
