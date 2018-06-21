@@ -7,10 +7,11 @@
 <br><a href="list.php">Вернуться к выбору тестов</a>
 <br><a href="admin.php">Вернуться к главной странице</a>
 <?php
-error_reporting(0);
-session_id($_COOKIE['session_id']);
-session_start();
-if ($_SESSION["auth"]!=="yes")
+if(!empty( session_id($_COOKIE['session_id']))) 
+   //session_id($_COOKIE['session_id']); правки
+   session_start();
+
+if($_SESSION['auth']!=='yes')
 {
     http_response_code(403);
     echo "<br><br> 403! Доступ запрещен! <br> Вы будете перемещены назад через 10 секунд!";
@@ -33,12 +34,12 @@ if ($_SESSION["auth"]!=="yes")
     </fieldset>
 </form>
 <?php
-$path_info = pathinfo("base/".($_FILES["testfile"]["name"]));
+$path_info = pathinfo("uploads/".($_FILES["testfile"]["name"]));
 //Задаем путь для сохраняемого теста
 if (isset($_POST["upload"]))
 {
     if(!empty($_FILES["testfile"])) { //внесла правки
-    if (is_file("base/".$_FILES["testfile"]["name"])) //Есть ли уже файл с таким именем
+    if (is_file("uploads/".$_FILES["testfile"]["name"])) //Есть ли уже файл с таким именем
     {
         echo "Извините, тест с таким именем уже существует";
     }
@@ -82,4 +83,3 @@ if (isset($_POST["upload"]))
 ?>
 </body>
 </html>
-
