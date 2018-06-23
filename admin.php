@@ -1,10 +1,11 @@
 <?php
+ini_set('error_reporting', E_ALL);
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+
 header("Content-Type: text/html; charset=utf-8");
-
 session_start();
-
 if(!empty(session_id($_COOKIE['session_id']))); 
-
 if (empty($_SESSION["name"])) {
     http_response_code(403);
     header("refresh: 5; url=list.php");
@@ -64,9 +65,11 @@ if(isset($_GET["create"])): ?>
         </fieldset>
     </form>
 <?php
-    //Задаем имя для сохраняемого теста
+//Задаем имя для сохраняемого теста
+    if(!empty($_POST["quiz_name"])) {
     $name = $_POST["quiz_name"];
     $file = "uploads/$name.json";
+    }
     if (isset($_POST['save']))
     {
         if
