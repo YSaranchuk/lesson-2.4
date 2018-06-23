@@ -7,9 +7,13 @@
 <br><a href="list.php">Вернуться к выбору тестов</a>
 <br><a href="admin.php">Вернуться к главной странице</a>
 <?php
-if(!empty( session_id($_COOKIE['session_id']))) 
+ini_set('error_reporting', E_ALL);
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+//if(!empty( session_id($_COOKIE['session_id']))) {
    //session_id($_COOKIE['session_id']); правки
    session_start();
+//}
 
 if($_SESSION['auth']!=='yes')
 {
