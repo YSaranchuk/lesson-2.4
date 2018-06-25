@@ -69,7 +69,7 @@ if(!empty($_SESSION["mistakes"])) {
     <p><input type="text" name="login" placeholder="Имя"></p>
     <p><input type="password" name="password" placeholder="Пароль"></p>
 <?php
-   if(!empty($_SESSION["mistakes"])) 
+  //как правильно здесь обратиться к  $_SESSION["mistakes"] чтобы не испортить логику??
     if($_SESSION["mistakes"]<=6):?>
     <p><input type="submit" name="sign_in" value="Вход"></p>
 <?php
