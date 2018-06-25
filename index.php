@@ -1,5 +1,8 @@
 <?php
-
+ini_set('error_reporting', E_ALL);
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+header("Content-Type: text/html; charset=utf-8");
 if (empty($_COOKIE['session_id']))
 {
     session_start();
@@ -44,7 +47,7 @@ if (isset($_GET["cap_test"])&&$_GET["code"]!==$_SESSION["cod"])
     $_SESSION["mistakes"]++;
 }
 //Механизм блокировки пользователя на час после 11 ошибок
-if(!empty($_SESSION[‘mistakes’])) {
+if(!empty($_SESSION["mistakes"])) {
     if($_SESSION["mistakes"]>11)
     {
         $_SESSION["blocked_time"] = $current_time + 3600;
@@ -66,7 +69,8 @@ if(!empty($_SESSION[‘mistakes’])) {
     <p><input type="text" name="login" placeholder="Имя"></p>
     <p><input type="password" name="password" placeholder="Пароль"></p>
 <?php
-if ($_SESSION["mistakes"]<=6): ?>
+   if(!empty($_SESSION["mistakes"])) 
+    if($_SESSION["mistakes"]<=6):?>
     <p><input type="submit" name="sign_in" value="Вход"></p>
 <?php
 endif;
@@ -91,7 +95,9 @@ if (isset($_POST["sign_in"])||
         exit ("<b>Необходимо ввести ваше имя!</b>");
     }
 }
+if(!empty($_POST["login"])) {
 $_SESSION["name"]=$_POST["login"];
+}
 if (isset($_POST["guest"]))
 {
     $_SESSION["guest"]='yes';
@@ -135,10 +141,11 @@ if (isset($_POST["sign_in"]))
         if ($users["login"]==$_POST["login"]&&$users["password"]==$_POST["password"])
         {
             $_SESSION['auth']='yes'; 
-            if(!empty($_SESSION["guest"]))
-            header("refresh: 10; url=admin.php");
+            if(!empty($_SESSION["guest"])) {
             unset($_SESSION["guest"]);
-            
+            }
+
+            header("refresh: 10; url=admin.php");
             echo "Добро пожаловать, " . $_SESSION["name"];
             echo "<br>Через 10 секунд вы будете перенаправлены на главную страницу";
             exit;
