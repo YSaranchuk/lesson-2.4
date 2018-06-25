@@ -10,18 +10,21 @@
 ini_set('error_reporting', E_ALL);
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
-//if(!empty( session_id($_COOKIE['session_id']))) {
-   //session_id($_COOKIE['session_id']); правки
-   session_start();
-//}
 
-if($_SESSION['auth']!=='yes')
-{
-    http_response_code(403);
-    echo "<br><br> 403! Доступ запрещен! <br> Вы будете перемещены назад через 10 секунд!";
-    header("refresh: 10; url=index.php");
-    exit();
+session_start();
+if(!empty($_COOKIE['session_id'])) {
+    session_id($_COOKIE['session_id']);
+    
 }
+    if($_SESSION['auth']!=='yes')
+    {
+        header("refresh: 10; url=index.php");
+        http_response_code(403); 
+        echo "<br><br> 403! Доступ запрещен! <br> Вы будете перемещены назад через 10 секунд!";
+        exit();
+    }
+
+
 ?>
 <form method="POST" enctype=multipart/form-data>
     <fieldset>
@@ -38,12 +41,14 @@ if($_SESSION['auth']!=='yes')
     </fieldset>
 </form>
 <?php
+if(!empty($_FILES["testfile"]["name"])) {
 $path_info = pathinfo("uploads/".($_FILES["testfile"]["name"]));
+}
 //Задаем путь для сохраняемого теста
-if (isset($_POST["upload"]))
+if (isset($_POST["upload"])) //правка
 {
     if(!empty($_FILES["testfile"])) { //внесла правки
-    if (is_file("uploads/".$_FILES["testfile"]["name"])) //Есть ли уже файл с таким именем
+        if (is_file("uploads/".$_FILES["testfile"]["name"])) //Есть ли уже файл с таким именем
     {
         echo "Извините, тест с таким именем уже существует";
     }
