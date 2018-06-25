@@ -7,30 +7,32 @@
 <br><a href="list.php">Вернуться к выбору тестов</a>
 <br><a href="admin.php">Вернуться к главной странице</a>
 <?php
+ini_set('error_reporting', E_ALL);
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
 
-if(!empty(session_id($_COOKIE['session_id']))) {
-session_start();
+session_start(); // Появляется предупреждение Warning: session_start(): Cannot send session cache limiter - headers already sent 
+
+if(!empty($_COOKIE['session_id'])) {
+    session_id($_COOKIE['session_id']);
 }
-if (!empty($_SESSION["name"])) {
-    if (empty($_SESSION["name"])) 
-{ 
-    header("refresh: 10; url=list.php");
-    http_response_code(403);
-    echo "<br><br> 403! Доступ запрещен! <br> Вы будете перемещены назад через 10 секунд!"; 
-    exit();
-}
-}
-$all_tests = glob("uploads/*.json");
-$number = $_GET["test_number"];
-if(!empty($test))
-$test = file_get_contents($all_tests[$number]) or exit('Не удалось получить данные');
-$decodedTest = json_decode($test, true) or exit('Ошибка декодирования json');
-$test = json_decode(file_get_contents($all_tests[$number]), true);
+    if (empty($_SESSION["auth"])) {
+        http_response_code(403);
+        header("refresh: 5; url=list.php");
+        echo "<br><br> 403! Доступ запрещен! <br> Вы будете перемещены назад через 5 секунд!";
+        exit();
+    } 
+    $all_tests = glob("uploads/*.json"); // подскажите как правильнее переписать этот код пожалуйста , ошибка за ошибкой при самостоятельном исправление
+    $number = $_GET["test_number"];
+    $test = json_decode(file_get_contents($all_tests[$number]), true);
+    
+
 if (is_null($_GET["test_number"])||empty($all_tests[$number]))
 {
     http_response_code(404);
     echo "<br><br> 404! Страница не найдена! <br> Вы будете перемещены назад через 10 секунд!";
     header("refresh: 10; url=list.php");
+}
 }
 if (isset($number)): ?>
     <p>Ответьте, пожалуйста, на вопросы.</p>
