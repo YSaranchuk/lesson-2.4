@@ -7,10 +7,14 @@
 <br><a href="admin.php">Вернуться к главной странице</a>
 
 <?php
-if(!empty( session_id($_COOKIE['session_id']))) {
-    //session_id($_COOKIE['session_id']); правки
-    session_start();
- }
+ini_set('error_reporting', E_ALL);
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+
+session_start();
+if(!empty($_COOKIE['session_id'])) {
+    session_id($_COOKIE['session_id']);
+}
 
 //Находим все имеющиеся тесты в заданной папке, определяя их в массив all_files
 $all_files = glob('uploads/*.json');
