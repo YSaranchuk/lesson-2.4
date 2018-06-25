@@ -46,7 +46,7 @@ if(isset($_GET["testing"]))
 
 if(isset($_GET["upload_test"]))
 {
-    header("Location: upload.php");
+    header("Location: upload.php");//Cannot modify header information - headers already sent by почему появляется
     exit();
 }
 //Если нажато создать тест - генератор тестов
