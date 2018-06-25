@@ -2,16 +2,20 @@
 ini_set('error_reporting', E_ALL);
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
-
 header("Content-Type: text/html; charset=utf-8");
+
 session_start();
-if(!empty(session_id($_COOKIE['session_id']))); 
-if (empty($_SESSION["name"])) {
-    http_response_code(403);
-    header("refresh: 5; url=list.php");
-    echo "<br><br> 403! Доступ запрещен! <br> Вы будете перемещены назад через 5 секунд!";
-    exit();
-} 
+
+if(!empty($_COOKIE['session_id'])) {
+    session_id($_COOKIE['session_id']);
+}
+    if (empty($_SESSION["auth"])) {
+        http_response_code(403);
+        header("refresh: 5; url=list.php");
+        echo "<br><br> 403! Доступ запрещен! <br> Вы будете перемещены назад через 5 секунд!";
+        exit();
+    } 
+
 ?>
 <html>
 <head>
@@ -39,6 +43,7 @@ if(isset($_GET["testing"]))
     exit();
 }
 //Если нажато Загрузить тест
+
 if(isset($_GET["upload_test"]))
 {
     header("Location: upload.php");
